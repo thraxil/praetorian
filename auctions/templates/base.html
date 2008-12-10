@@ -1,0 +1,41 @@
+<html>
+<head><title>Auctions</title>
+
+<style media="screen" type="text/css">
+@import "/site_media/style.css" ;
+</style>
+
+
+</head>
+<body>
+
+<div id="header">
+
+<div id="menu">
+      <ul>
+	<li><a href="/feeds/main/"><img src="/site_media/feed.png" border="0" width="14" height="14" alt="Atom Feed" /></li>
+	<li><a href="/">home</a></li>
+	<li><a href="/rules/">the rules</a></li>
+      </ul>
+<div id="login">
+{% if user.is_authenticated %}
+    <p>Welcome, <a href="/accounts/profile/">{{ user.username }}</a>.
+    [<a href="/logout/">logout</a>]</p>
+{% else %}
+    <p>Please <a href="/login/">log in</a>.</p>
+{% endif %}
+</div>
+
+</div>
+</div>
+    <div id="main_content">
+<p></p>
+{% block content %}{% endblock %}
+</div>
+
+<div id="footer"> 
+</div>
+</body>
+</html>
+
+

@@ -1,0 +1,7 @@
+<img src="{{ obj.square_url }}" width="75" height="75" alt="{{ obj.name }}" />
+<p>
+{% ifequal obj.status "closed" %}<b>This auction ended on {{ obj.modified|date:"D, F j G:i:s" }} with a winning bid of {{ obj.highest_bid }}</b>{% endifequal %}
+{% ifequal obj.status "nobid" %}<b>No one has bid on this auction yet. It was added on {{ obj.start_date|date:"D, F j G:i:s" }}</b>{% endifequal %}
+{% ifequal obj.status "open" %}<b>last bid at {{ obj.modified|date:"D, F j G:i:s" }} for {{ obj.highest_bid }}BST. {{obj.days_left}} days left</b>{% endifequal %}
+</p>
+<p>{{ obj.description }}</p>

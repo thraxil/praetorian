@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if user_is_auction_winner %}
+<p>You won this auction. Congratulations. Contact Anders about getting it.</p>
+{% endif %}
+
+{% if user_is_top_bidder and not user_is_auction_winner %}
+<p>you are currently the top bidder on this item. {{ auction.days_left }} day(s) to go before the auction closes. </p>
+{% endif %}
+
+
+
+<table>
+<tr><td><a href="{{ auction.url }}"><img src="{{ auction.square_url }}" width="75" height="75" alt="{{ auction.name }}" /></a></td>
+<td><h1>{{ auction.name }}</h1></td></tr>
+
+<tr><th>status:</th><td> {{auction.status}}</td></tr>
+{% ifequal auction.status "open"%}<tr><th>close date:</th><td> {{ auction.close_date|date:"D, F j G:i:s"  }} ({{ auction.days_left }} days)</td></tr>{%endifequal%}
+{% ifequal auction.status "nobid"%}<tr><th>close date:</th><td> no close date set (no bids yet)</td></tr>{%endifequal%} 
+<tr><th>started:</th><td> {{auction.start_date|date:"D, F j G:i:s" }}</p></td></tr>
+{% if auction.description %}<tr><td colspan="2"><p>{{ auction.description }}</p></td></tr>{% endif %}
+</table>
+
+{% if user_can_bid and not user_is_top_bidder %}
+<form action="/auction/{{ auction.id }}/bid/" method="post">
+<fieldset><legend>Bid</legend>
+
+<p>amount: {{ auction.min_bid }}BST (you have {{ au.available_points }}BST available)</p>
+
+<input type="submit" value="bid" />
+
+</fieldset>
+</form>
+{% endif %}
+
+
+
+{% if auction.bids %}
+<h2>bid history</h2>
+
+<ul>
+{% for bid in auction.bids %}
+    <li{% ifequal bid.user.id user.id %} class="userbid"{% endifequal %}>{% if forloop.first %}<b>{% endif %}{{ bid.amount }}BST @ {{ bid.timestamp|date:"D, F j G:i:s"  }}{% if forloop.first %}</b>{% endif %}
+{%ifequal user.username "anders"%} by {{ bid.user.username}} {% endifequal %}</li>
+{% endfor %}
+</ul>
+
+
+{% endif %}
+
+{% endblock %}

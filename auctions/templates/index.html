@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<table width="100%">
+{% if open_auctions %}
+<tr><th colspan="3">open auctions</th></tr>
+
+{% for auction in open_auctions %}
+
+<tr class="{%cycle even,odd%}">
+  <td><a href="/auction/{{ auction.id }}/"><img src="{{ auction.square_url }}" width="75" height="75" alt="{{ auction.name }}" /></a></td>
+  <td>
+    days left: <b>{{ auction.days_left }}</b><br />
+    current bid: <b>{{ auction.highest_bid }}BST</b></b>
+  </td>
+  <td>
+    {% ifequal auction.top_bid_user_id user.id %}You are the top bidder
+    {% else %}
+    {% if auction.can_bid %}
+<form action="/auction/{{ auction.id }}/bid/" method="post">
+<input type="submit" value="bid {{auction.min_bid}}BST" />
+</form>
+    {% else %}
+    You don't have enough funds to bid on this one.
+    {% endif %}
+    {% endifequal %}    
+  </td>
+</tr>
+
+{% endfor %}
+{% endif %}
+
+
+{% if nobid_auctions %}
+<tr><th colspan="3">nobid auctions</th></tr>
+{% for auction in nobid_auctions %}
+
+<tr class="{%cycle even,odd%}">
+  <td><a href="/auction/{{ auction.id }}/"><img src="{{ auction.square_url }}" width="75" height="75" alt="{{ auction.name }}" /></a></td>
+  <td>
+    added: <b>{{ auction.start_date|date:"D, F j G:i:s"  }}</b>
+  </td>
+  <td>
+    {% if au.can_bid_on_nobids %}
+<form action="/auction/{{ auction.id }}/bid/" method="post">
+<input type="submit" value="make an opening bid (1 BST)" />
+</form>
+    {% endif %}
+  </td>
+</tr>
+
+{% endfor %}
+{% endif %}
+
+
+{% if closed_auctions %}
+<tr><th colspan="3">closed auctions</th></tr>
+{% for auction in closed_auctions %}
+
+<tr class="{%cycle even,odd%}">
+  <td><a href="/auction/{{ auction.id }}/"><img src="{{ auction.square_url }}" width="75" height="75" alt="{{ auction.name }}" /></a></td>
+  <td>
+    closed on: <b>{{ auction.modified|date:"D, F j G:i:s" }}</b><br />
+    winning bid: <b>{{ auction.highest_bid }}BST</b>
+  </td>
+  <td>
+    {% ifequal auction.top_bid_user_id user.id %}Congratulations, you won this one!{% endifequal %}
+  </td>
+</tr>
+
+{% endfor %}
+{% endif %}
+</table>
+
+
+{% endblock %}

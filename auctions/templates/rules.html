@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>The Rules</h1>
+
+<p>This is how it works. It's really not too complicated.</p>
+
+<p>You have some amount of auction currency (expressed in BSTs) that you can use to bid on auctions.</p>
+
+<p>Auctions start out at a bid of 1BST. The bid goes up from there as people bid on it. </p>
+
+<p>When a bid is made on an auction, a 1 week timer starts counting down on it. At the end of that week, the 
+person who made that bid wins the auction. Anyone else bidding on it before it closes takes over as the top
+bidder and the timer starts counting down for them. So, unlike eBay, there isn't a fixed closing time
+on these auctions. It's more like the live auctions you've seen where the auctioneer is calling out 
+"I have 5 million from the gentleman in the orange shirt. 5 million going once, going twice, sold! to the 
+gentleman in the orange shirt for 5 million!" but on a much slower scale. The auction continues until a week passes where
+no one is willing to bid higher. Since you all have only a finite amount of currency to bid with, this 
+guarantees that auctions <em>will</em> end eventually.</p>
+
+<p>To further help keep things from dragging on forever, the minimum bid increment goes up as the 
+timer gets closer to a week. It goes up 1BST every day. So, eg, if an auction gets a bid for 10BST, another 
+user could bid 11BST immediately. If they waited 24 hours and no one else has bid, the minimum bid becomes 12 BST. 
+After 48 hours it goes up to 13BST, and so on up to 17BST on the last day before the auction closes. The purpose
+of this is to encourage speedier bidding. </p>
+
+<p>Bids cannot be taken back. If you bid on an auction and win, that's it. Your currency is spent
+and you can't back out if a new auction comes up that you decide you'd rather bid on. </p>
+
+<p>I will be setting up an allowance system at some point that will periodically (probably monthly) add
+funds to everyone's account. I haven't worked out the exact details of that yet and I'll probably wait until
+after watching the initial bidding so I get a sense of how quickly people spend their funds. My goal will be
+to keep the trickle of funds slow enough that auctions still complete in a finite amount of time.</p>
+
+<p>From time to time, whenever I feel like it and have more art I want to get rid of, I'll add more auctions to
+the site. I'll try to send out an email when I do that so you all know.</p>
+
+<p>OK, here's the <strong>SINGLE MOST IMPORTANT RULE</strong>: I will not deliver or mail a damn thing. 
+The post office is my mortal enemy. I've been through enough crap shipping books to people and I just don't
+want to deal with it anymore. No matter how much you beg and plead, I'm not going to bother packaging things up
+and trying to find the time to make it to the post office on my lunch break and stand in line for an hour. Fuck
+that shit. If I'm going to be visiting you and the item is small and you remind me, I <em>might</em> bring it to
+you. But basically, if you win an auction, you're going to have to come to my place and pick it up. Consider 
+that carefully as you bid. I will hold onto items for you indefinitely, but that's all I can really promise. Hey, part of my 
+motivation for doing this is that it will encourage my friends to come visit me. </p>
+
+<p>I also reserve the right to override anything for whatever reason. It's my artwork, my website, 
+and my own currency. I can cancel auctions, adjust people's currency, delete bids, adjust closing times, 
+tweak the algorithms and rules, and so on. I probably <em>will</em> tweak things quite a bit at the 
+beginning as I see what appears to be working and what isn't.</p>
+
+<p>-Anders</p>
+
+{% endblock %}
